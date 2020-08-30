@@ -22,11 +22,12 @@ class GoogleAuth extends React.Component {
   }
 
   onAuthChange = (isSignedIn) => {
-    if (isSignedIn) {
-      this.props.signIn();
-    } else {
-      this.props.signOut();
-    }
+    isSignedIn ? this.props.signIn() : this.props.signOut();
+    // if (isSignedIn) {
+    //   this.props.signIn();
+    // } else {
+    //   this.props.signOut();
+    // }
   };
 
   onSignInClick = () => {

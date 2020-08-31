@@ -1,10 +1,11 @@
 import _ from 'lodash';
+
 import {
   CREATE_STREAM,
   DELETE_STREAM,
+  EDIT_STREAM,
   FETCH_STREAM,
-  FETCH_STREAMS,
-  EDIT_STREAM
+  FETCH_STREAMS
 } from '../actions/types';
 
 export default (state = {}, action) => {

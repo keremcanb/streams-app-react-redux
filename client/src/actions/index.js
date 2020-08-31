@@ -1,13 +1,14 @@
-import streams from '../apis/streams';
 import {
-  SIGN_IN,
-  SIGN_OUT,
   CREATE_STREAM,
   DELETE_STREAM,
+  EDIT_STREAM,
   FETCH_STREAM,
   FETCH_STREAMS,
-  EDIT_STREAM
+  SIGN_IN,
+  SIGN_OUT
 } from './types';
+
+import streams from '../apis/streams';
 
 export const signIn = (userId) => {
   return {

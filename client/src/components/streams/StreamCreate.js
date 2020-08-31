@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { createStream } from '../../actions';
 
 class StreamCreate extends Component {
@@ -49,6 +50,11 @@ class StreamCreate extends Component {
     );
   }
 }
+
+StreamCreate.propTypes = {
+  createStream: PropTypes.func,
+  handleSubmit: PropTypes.func
+};
 
 const validate = (formValues) => {
   const errors = {};

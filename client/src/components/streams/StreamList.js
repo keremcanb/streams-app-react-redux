@@ -1,6 +1,8 @@
+/* eslint-disable consistent-return */
 import React from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { fetchStreams } from '../../actions';
 
 class StreamList extends React.Component {
@@ -54,6 +56,15 @@ class StreamList extends React.Component {
     );
   }
 }
+
+StreamList.propTypes = {
+  currentUserId: PropTypes.any,
+  fetchStreams: PropTypes.func,
+  isSignedIn: PropTypes.any,
+  streams: PropTypes.shape({
+    map: PropTypes.func
+  })
+};
 
 const mapStateToProps = (state) => {
   return {

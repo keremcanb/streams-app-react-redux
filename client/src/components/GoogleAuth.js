@@ -1,5 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
 import { signIn, signOut } from '../actions';
 
 class GoogleAuth extends React.Component {
@@ -59,6 +61,12 @@ class GoogleAuth extends React.Component {
     return <div>{this.renderAuthButton()}</div>;
   }
 }
+
+GoogleAuth.propTypes = {
+  isSignedIn: PropTypes.any,
+  signIn: PropTypes.func,
+  signOut: PropTypes.func
+};
 
 const mapStateToProps = (state) => {
   return { isSignedIn: state.auth.isSignedIn };

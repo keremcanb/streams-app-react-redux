@@ -1,16 +1,16 @@
 /* eslint-disable consistent-return */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchStreams } from '../../actions';
 
-class StreamList extends React.Component {
-  componentDidMount() {
-    this.props.fetchStreams();
-  }
+const StreamList = ({ fetchStreams, currentUserId, streams, isSignedIn }) => {
+  useEffect(() => {
+    fetchStreams();
+  });
 
-  renderAdmin(stream) {
-    if (stream.userId === this.props.currentUserId) {
+  const renderAdmin = (stream) => {
+    if (stream.userId === currentUserId) {
       return (
         <div className="right floated content">
           <Link to={`/streams/edit/${stream.id}`} className="ui button">
@@ -20,13 +20,13 @@ class StreamList extends React.Component {
         </div>
       );
     }
-  }
+  };
 
-  renderList() {
-    return this.props.streams.map((stream) => {
+  const renderList = () => {
+    return streams.map((stream) => {
       return (
         <div className="item" key={stream.id}>
-          {this.renderAdmin(stream)}
+          {renderAdmin(stream)}
           <i className="large middle aligned icon camera" />
           <div>
             <div className="content">{stream.title}</div>
@@ -35,30 +35,32 @@ class StreamList extends React.Component {
         </div>
       );
     });
-  }
+  };
 
-  renderCreate() {
-    if (this.props.isSignedIn) {
+  const renderCreate = () => {
+    if (isSignedIn) {
       return (
-        <div style={{ textAlign: 'right' }}>
+        <div
+          style={{
+            textAlign: 'right'
+          }}
+        >
           <Link to="/streams/new" className="ui button primary">
             Create Stream
           </Link>
         </div>
       );
     }
-  }
+  };
 
-  render() {
-    return (
-      <div>
-        <h2>Streams</h2>
-        <div className="ui celled list">{this.renderList()}</div>
-        {this.renderCreate()}
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <h2>Streams</h2>
+      <div className="ui celled list">{renderList()}</div>
+      {renderCreate()}
+    </div>
+  );
+};
 
 const mapStateToProps = (state) => {
   return {

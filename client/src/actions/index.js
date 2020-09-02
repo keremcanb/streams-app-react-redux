@@ -10,19 +10,6 @@ import {
   EDIT_STREAM
 } from './types';
 
-export const signIn = (userId) => {
-  return {
-    type: SIGN_IN,
-    payload: userId
-  };
-};
-
-export const signOut = () => {
-  return {
-    type: SIGN_OUT
-  };
-};
-
 export const fetchStreams = () => async (dispatch) => {
   const response = await streams.get('/streams');
 
@@ -72,4 +59,17 @@ export const deleteStream = (id) => async (dispatch) => {
     type: DELETE_STREAM,
     payload: id
   });
+};
+
+export const signIn = (userId) => {
+  return {
+    type: SIGN_IN,
+    payload: userId
+  };
+};
+
+export const signOut = () => {
+  return {
+    type: SIGN_OUT
+  };
 };

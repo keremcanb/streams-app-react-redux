@@ -9,15 +9,15 @@ const StreamForm = ({ onSubmit, handleSubmit }) => {
   return (
     <div>
       <form
+        onSubmit={handleSubmit(onSubmitHandle)}
         name="createStreamForm"
         className="ui form error"
-        onSubmit={handleSubmit(onSubmitHandle)}
       >
-        <Field name="title" label="Enter Title" component={renderInput} />
+        <Field component={renderInput} name="title" label="Enter Title" />
         <Field
+          component={renderInput}
           name="description"
           label="Enter Description"
-          component={renderInput}
         />
         <button className="ui button primary">Submit</button>
       </form>
@@ -30,9 +30,7 @@ const shouldDisplayError = (meta) => {
 };
 
 const renderError = (meta) => {
-  return shouldDisplayError(meta) ? (
-    <div> - {meta.error.toUpperCase()}</div>
-  ) : null;
+  return shouldDisplayError(meta) && <div>{meta.error}</div>;
 };
 
 const renderInput = ({ input, label, meta }) => {

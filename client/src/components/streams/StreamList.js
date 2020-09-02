@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -10,16 +9,16 @@ const StreamList = ({ fetchStreams, currentUserId, streams, isSignedIn }) => {
   });
 
   const renderAdmin = (stream) => {
-    if (stream.userId === currentUserId) {
-      return (
+    return (
+      stream.userId === currentUserId && (
         <div className="right floated content">
           <Link to={`/streams/edit/${stream.id}`} className="ui button">
             Edit
           </Link>
           <button className="ui button negative small">Delete</button>
         </div>
-      );
-    }
+      )
+    );
   };
 
   const renderList = () => {
@@ -38,19 +37,15 @@ const StreamList = ({ fetchStreams, currentUserId, streams, isSignedIn }) => {
   };
 
   const renderCreate = () => {
-    if (isSignedIn) {
-      return (
-        <div
-          style={{
-            textAlign: 'right'
-          }}
-        >
+    return (
+      isSignedIn && (
+        <div style={{ textAlign: 'right' }}>
           <Link to="/streams/new" className="ui button primary">
             Create Stream
           </Link>
         </div>
-      );
-    }
+      )
+    );
   };
 
   return (

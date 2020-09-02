@@ -6,7 +6,7 @@ import { fetchStreams } from '../../actions';
 const StreamList = ({ fetchStreams, currentUserId, streams, isSignedIn }) => {
   useEffect(() => {
     fetchStreams();
-  });
+  }, [fetchStreams]);
 
   const renderAdmin = (stream) => {
     return (

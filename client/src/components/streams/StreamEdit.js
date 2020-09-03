@@ -7,7 +7,7 @@ import StreamForm from './StreamForm';
 const StreamEdit = ({ fetchStream, editStream, match, stream }) => {
   useEffect(() => {
     fetchStream(match.params.id);
-  }, [fetchStream, match.params.id]);
+  }, [fetchStream, match]);
 
   const onSubmit = (formValues) => {
     editStream(match.params.id, formValues);

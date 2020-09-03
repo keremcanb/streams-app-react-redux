@@ -1,68 +1,68 @@
-import React from 'react';
+/* eslint-disable consistent-return */
+/* eslint-disable class-methods-use-this */
+import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 
-const StreamForm = ({ onSubmit, handleSubmit }) => {
-  const onSubmitHandle = (formValues) => {
-    onSubmit(formValues);
+class StreamForm extends Component {
+  onSubmit = (formValues) => {
+    this.props.onSubmit(formValues);
   };
 
-  return (
-    <div>
+  renderError({ error, touched }) {
+    if (touched && error) {
+      return (
+        <div className="ui error message">
+          <div className="header">{error}</div>
+        </div>
+      );
+    }
+  }
+
+  renderInput = ({ input, label, meta }) => {
+    const className = `field ${meta.error && meta.touched ? 'error' : ''}`;
+
+    return (
+      <div className={className}>
+        <label>{label}</label>
+        <input {...input} autoComplete="off" />
+        {this.renderError(meta)}
+      </div>
+    );
+  };
+
+  render() {
+    return (
       <form
-        onSubmit={handleSubmit(onSubmitHandle)}
-        name="createStreamForm"
+        onSubmit={this.props.handleSubmit(this.onSubmit)}
         className="ui form error"
       >
-        <Field component={renderInput} name="title" label="Enter Title" />
+        <Field name="title" component={this.renderInput} label="Enter Title" />
         <Field
-          component={renderInput}
           name="description"
+          component={this.renderInput}
           label="Enter Description"
         />
         <button className="ui button primary">Submit</button>
       </form>
-    </div>
-  );
-};
+    );
+  }
+}
 
-const shouldDisplayError = (meta) => {
-  return meta.touched && meta.error;
-};
-
-const renderError = (meta) => {
-  return shouldDisplayError(meta) && <div>{meta.error}</div>;
-};
-
-const renderInput = ({ input, label, meta }) => {
-  const className = `field ${meta.error && meta.touched ? 'error' : ''}`;
-
-  return (
-    <div className={className}>
-      <label htmlFor={input.name}>
-        {label} {renderError(meta)}
-      </label>
-      <input {...input} autoComplete="off" />
-    </div>
-  );
-};
-
-const validateForm = (formValues) => {
+const validate = (formValues) => {
   const errors = {};
 
   if (!formValues.title) {
-    errors.title = 'is required';
+    errors.title = 'You must enter a title';
   }
 
   if (!formValues.description) {
-    errors.description = 'is required';
+    errors.description = 'You must enter a description';
   }
 
   return errors;
 };
 
-const formWrapped = reduxForm({
-  form: 'streamForm',
-  validate: validateForm
+export default reduxForm({
+  form: 'StreamForm',
+  validate
 })(StreamForm);
-
-export default formWrapped;

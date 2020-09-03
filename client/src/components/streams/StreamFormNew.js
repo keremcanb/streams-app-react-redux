@@ -1,14 +1,15 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable consistent-return */
-/* eslint-disable class-methods-use-this */
-import React, { Component } from 'react';
+import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 
-class StreamForm extends Component {
-  onSubmit = (formValues) => {
-    this.props.onSubmit(formValues);
+const StreamForm = ({ onSubmit, handleSubmit }) => {
+  const onSubmitHandle = (formValues) => {
+    onSubmit(formValues);
   };
 
-  renderError({ error, touched }) {
+  const renderError = ({ error, touched }) => {
     if (touched && error) {
       return (
         <div className="ui error message">
@@ -16,37 +17,32 @@ class StreamForm extends Component {
         </div>
       );
     }
-  }
+  };
 
-  renderInput = ({ input, label, meta }) => {
+  const renderInput = ({ input, label, meta }) => {
     const className = `field ${meta.error && meta.touched ? 'error' : ''}`;
 
     return (
       <div className={className}>
         <label>{label}</label>
         <input {...input} autoComplete="off" />
-        {this.renderError(meta)}
+        {renderError(meta)}
       </div>
     );
   };
 
-  render() {
-    return (
-      <form
-        onSubmit={this.props.handleSubmit(this.onSubmit)}
-        className="ui form error"
-      >
-        <Field name="title" component={this.renderInput} label="Enter Title" />
-        <Field
-          name="description"
-          component={this.renderInput}
-          label="Enter Description"
-        />
-        <button className="ui button primary">Submit</button>
-      </form>
-    );
-  }
-}
+  return (
+    <form onSubmit={handleSubmit(onSubmitHandle)} className="ui form error">
+      <Field component={renderInput} name="title" label="Enter Title" />
+      <Field
+        component={renderInput}
+        name="description"
+        label="Enter Description"
+      />
+      <button className="ui button primary">Submit</button>
+    </form>
+  );
+};
 
 const validate = (formValues) => {
   const errors = {};

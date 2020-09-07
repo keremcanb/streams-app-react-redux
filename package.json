@@ -1,0 +1,22 @@
+{
+  "name": "streams",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"cd api && npm run start\" \"cd client && npm run start\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keremcanb/streams-app-react-redux.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/keremcanb/streams-app-react-redux/issues"
+  },
+  "homepage": "https://github.com/keremcanb/streams-app-react-redux#readme",
+  "dependencies": {
+    "concurrently": "^5.3.0"
+  }
+}

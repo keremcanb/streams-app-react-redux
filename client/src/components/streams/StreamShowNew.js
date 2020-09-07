@@ -12,26 +12,23 @@ const StreamShow = ({ fetchStream, match, stream }) => {
 
     fetchStream(id);
 
+    const buildPlayer = () => {
+      if (player || !stream) {
+        return;
+      }
+
+      const { id } = match.params;
+
+      const player = flv.createPlayer({
+        type: 'flv',
+        url: `http://localhost:8000/live/${id}.flv`
+      });
+      player.attachMediaElement(videoRef.current);
+      player.load();
+    };
+
     buildPlayer();
-  }, [fetchStream, match, videoRef, buildPlayer]);
-
-  useEffect(() => {
-    buildPlayer();
-  }, [buildPlayer]);
-
-  const buildPlayer = () => {
-    if (player || !stream) {
-      return;
-    }
-
-    const { id } = match.params;
-    const player = flv.createPlayer({
-      type: 'flv',
-      url: `http://localhost:8000/live/${id}.flv`
-    });
-    player.attachMediaElement(videoRef.current);
-    player.load();
-  };
+  }, [fetchStream, match, videoRef, stream]);
 
   return stream ? (
     <div>

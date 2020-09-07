@@ -1,26 +1,56 @@
-import React, { useEffect } from 'react';
+/* eslint-disable jsx-a11y/media-has-caption */
+import React from 'react';
+import flv from 'flv.js';
 import { connect } from 'react-redux';
 import { fetchStream } from '../../actions';
 
-const StreamShow = ({ fetchStream, match, stream }) => {
-  useEffect(() => {
-    fetchStream(match.params.id);
-  }, [fetchStream, match]);
+class StreamShow extends React.Component {
+  constructor(props) {
+    super(props);
+    this.videoRef = React.createRef();
+  }
 
-  return stream ? (
-    <div>
-      <h1>{stream.title}</h1>
-      <h5>{stream.description}</h5>
-    </div>
-  ) : (
-    <div>Loading...</div>
-  );
-};
+  componentDidMount() {
+    const urlId = this.props.match.params.id;
+    this.props.fetchStream(urlId);
+  }
+
+  componentDidUpdate() {
+    this.buildPlayer();
+  }
+
+  componentWillUnmount() {
+    this.player.destroy();
+  }
+
+  buildPlayer() {
+    if (this.player || !this.props.stream) {
+      return;
+    }
+    this.player = flv.createPlayer({
+      type: 'flv',
+      url: `http://localhost:8000/live/${this.props.stream.id}.flv`
+    });
+    this.player.attachMediaElement(this.videoRef.current);
+    this.player.load();
+  }
+
+  render() {
+    return this.props.stream ? (
+      <div>
+        <video ref={this.videoRef} style={{ width: '50%' }} controls />
+        <h1>{this.props.title}</h1>
+        <h5>{this.props.description}</h5>
+      </div>
+    ) : (
+      <div>Loading...</div>
+    );
+  }
+}
 
 const mapStateToProps = (state, ownProps) => {
-  return {
-    stream: state.streams[ownProps.match.params.id]
-  };
+  const urlId = ownProps.match.params.id;
+  return { stream: state.streams[urlId] };
 };
 
 export default connect(mapStateToProps, { fetchStream })(StreamShow);

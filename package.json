@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently \"cd api && npm run start\" \"cd client && npm run start\""
+    "start": "concurrently \"cd client && npm run start\" \"cd api && npm run start\" \"cd rtmpserver && npm run start\""
   },
   "repository": {
     "type": "git",

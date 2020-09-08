@@ -5,12 +5,14 @@ import { fetchStream, editStream } from '../../actions';
 import StreamForm from './StreamForm';
 
 const StreamEdit = ({ fetchStream, editStream, match, stream }) => {
+  const { id } = match.params;
+
   useEffect(() => {
-    fetchStream(match.params.id);
-  }, [fetchStream, match]);
+    fetchStream(id);
+  }, [fetchStream, id]);
 
   const onSubmit = (formValues) => {
-    editStream(match.params.id, formValues);
+    editStream(id, formValues);
   };
 
   return stream ? (

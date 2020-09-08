@@ -6,30 +6,27 @@ import Modal from '../Modal';
 import history from '../../history';
 
 const StreamDelete = ({ stream, match, fetchStream, deleteStream }) => {
+  const { id } = match.params;
+
   useEffect(() => {
-    fetchStream(match.params.id);
-  }, [match, fetchStream]);
+    fetchStream(id);
+  }, [id, fetchStream]);
 
-  const renderActions = () => {
-    const { id } = match.params;
+  const renderActions = () => (
+    <>
+      <button onClick={() => deleteStream(id)} className="ui button negative">
+        Delete
+      </button>
+      <Link to="/" className="ui button">
+        Cancel
+      </Link>
+    </>
+  );
 
-    return (
-      <>
-        <button onClick={() => deleteStream(id)} className="ui button negative">
-          Delete
-        </button>
-        <Link to="/" className="ui button">
-          Cancel
-        </Link>
-      </>
-    );
-  };
-
-  const renderContent = () => {
-    return !stream
+  const renderContent = () =>
+    !stream
       ? 'Are you sure you want to delete this  stream?'
       : `Are you sure you want to delete the stream with title: ${stream.title}`;
-  };
 
   return (
     <Modal

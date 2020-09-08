@@ -9,16 +9,15 @@ const StreamList = ({ fetchStreams, currentUserId, streams, isSignedIn }) => {
   }, [fetchStreams]);
 
   const renderAdmin = (stream) => {
+    const { userId, id } = stream;
+
     return (
-      stream.userId === currentUserId && (
+      userId === currentUserId && (
         <div className="right floated content">
-          <Link to={`/streams/edit/${stream.id}`} className="ui button">
+          <Link to={`/streams/edit/${id}`} className="ui button">
             Edit
           </Link>
-          <Link
-            to={`/streams/delete/${stream.id}`}
-            className="ui button negative"
-          >
+          <Link to={`/streams/delete/${id}`} className="ui button negative">
             Delete
           </Link>
         </div>
@@ -26,34 +25,32 @@ const StreamList = ({ fetchStreams, currentUserId, streams, isSignedIn }) => {
     );
   };
 
-  const renderList = () => {
-    return streams.map((stream) => {
+  const renderList = () =>
+    streams.map((stream) => {
+      const { id, title, description } = stream;
+
       return (
-        <div className="item" key={stream.id}>
+        <div className="item" key={id}>
           {renderAdmin(stream)}
           <i className="large middle aligned icon camera" />
           <div>
-            <Link to={`/streams/${stream.id}`} className="header">
-              {stream.title}
+            <Link to={`/streams/${id}`} className="header">
+              {title}
             </Link>
-            <div className="description">{stream.description}</div>
+            <div className="description">{description}</div>
           </div>
         </div>
       );
     });
-  };
 
-  const renderCreate = () => {
-    return (
-      isSignedIn && (
-        <div style={{ textAlign: 'right' }}>
-          <Link to="/streams/new" className="ui button primary">
-            Create Stream
-          </Link>
-        </div>
-      )
+  const renderCreate = () =>
+    isSignedIn && (
+      <div style={{ textAlign: 'right' }}>
+        <Link to="/streams/new" className="ui button primary">
+          Create Stream
+        </Link>
+      </div>
     );
-  };
 
   return (
     <div>

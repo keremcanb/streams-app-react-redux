@@ -11,6 +11,8 @@
   "rules": {
     "no-console": "off",
     "no-shadow": "off",
+    "consistent-return": "off",
+    "class-methods-use-this": "off",
     "react/prop-types": "off",
     "react/button-has-type": "off",
     "react/destructuring-assignment": "off",

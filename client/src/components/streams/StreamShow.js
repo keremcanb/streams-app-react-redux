@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/media-has-caption */
 import React from 'react';
 import flv from 'flv.js';
 import { connect } from 'react-redux';

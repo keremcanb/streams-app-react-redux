@@ -27,6 +27,7 @@ const StreamEdit = ({ fetchStream, editStream, match, stream }) => {
     <div>Loading...</div>
   );
 };
+
 const mapStateToProps = (state, ownProps) => {
   return { stream: state.streams[ownProps.match.params.id] };
 };
